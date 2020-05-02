@@ -1,0 +1,10 @@
+$workspace-border-radius: 10px;
+
+.blox {
+    &.workspace {
+        width: 1000px;
+        height: 750px;
+        border: 1px solid #242424;
+        border-radius: $workspace-border-radius;
+    }
+}

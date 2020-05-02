@@ -1,0 +1,39 @@
+$block-height: 40px;
+@import "toolbox";
+
+.blox {
+    &.block {
+        height: 40px;
+        width: 200px;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+
+        &.field {
+            height: auto;
+            width: auto;
+            border-radius: 0;
+            display: inline;
+            font-family: $blox-font-family;
+
+            &.dummy {
+                position: relative;
+                left: 15px;
+                font-size: 17px;
+            }
+
+            &.number {
+                margin-left: 22px;
+                margin-right: 22px;
+                border: none;
+                border-radius: 15px;
+                padding: 2px 5px 2px 4px;
+                text-align: center;
+
+                &:focus {
+                    outline: none !important;
+                }
+            }
+        }
+    }
+}

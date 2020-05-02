@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import "workspace";
+
+$toolbox-background-color: #1e272c;
+$toolbox-color: #ffffff;
+$toolbox-width: 20%;
+
+$toolbox-flyout-background-color: rgba(37, 49, 55, 0.79);
+$toolbox-flyout-color: #ffffff;
+$toolbox-flyout-roundness: 15px;
+$toolbox-flyout-width: 25%;
+
+$blox-font-family: "Roboto", sans-serif;
+
+.blox {
+    &.sidebar {
+        height: 100%;
+    }
+
+    &.toolbox {
+        position: relative;
+        left: 0;
+        right: 0;
+        width: $toolbox-width;
+        height: 100%;
+        background-color: $toolbox-background-color;
+        color: $toolbox-color;
+        border-radius: $workspace-border-radius 0 0 $workspace-border-radius;
+
+        &.flyout {
+            background-color: $toolbox-flyout-background-color;
+            color: $toolbox-flyout-color;
+            position: relative;
+            left: $toolbox-width;
+            bottom: 100%;
+            height: calc(100% - 40px);
+            width: $toolbox-flyout-width;
+            border-radius: 0 $toolbox-flyout-roundness $toolbox-flyout-roundness 0;
+            padding: 20px;
+        }
+    }
+
+    &.category {
+        position: absolute;
+        left: 5%;
+        width: 90%;
+        height: 40px;
+
+        display: flex;
+        align-items: center;
+
+        .color {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 5%;
+        }
+
+        .label {
+            position: absolute;
+            margin: 0;
+            font-family: $blox-font-family;
+            left: calc(5% + 10px);
+            font-size: 16px;
+        }
+    }
+}
