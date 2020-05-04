@@ -1,6 +1,8 @@
 $block-height: 40px;
 @import "toolbox";
 
+@import "utils";
+
 .blox {
     &.block {
         height: 40px;
@@ -20,11 +22,14 @@ $block-height: 40px;
                 position: relative;
                 left: 15px;
                 font-size: 17px;
+
+                &:not(:first-child) {
+                    left: 7px;
+                }
             }
 
-            &.number {
+            &.number, &.string {
                 margin-left: 22px;
-                margin-right: 22px;
                 border: none;
                 border-radius: 15px;
                 padding: 2px 5px 2px 4px;
@@ -32,6 +37,66 @@ $block-height: 40px;
 
                 &:focus {
                     outline: none !important;
+                }
+
+                &:first-child {
+                    margin-left: 15px;
+                }
+            }
+
+            &.check {
+                $checkbox-size: 17px;
+
+                &.label {
+                    display: flex;
+
+                    input {
+                        visibility: hidden;
+                        display: block;
+                        height: 0;
+                        width: 0;
+                        position: absolute;
+                        margin-left: 20px;
+                        overflow: hidden;
+
+                        &:checked + span {
+                            &:after {
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    span {
+                        cursor: pointer;
+                        margin-left: 23px;
+                        height: $checkbox-size;
+                        background-color: rgba(255, 255, 255, 0.9);
+                        width: $checkbox-size;
+                        border: 1px solid rgba(75, 75, 75, 0.9);
+                        border-radius: 5px;
+                        display: inline-block;
+
+                        &:after {
+                            transition: opacity 0.2s ease-in;
+                            content: '';
+                            position: absolute;
+                            width: $checkbox-size;
+                            height: $checkbox-size;
+                            background-size: 70%;
+                            opacity: 0;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-image: svg-uri('<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" class="svg-inline--fa fa-check fa-w-16" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg>');
+                        }
+
+                        &:hover {
+                            background-color: #c3c3c3;
+                        }
+                    }
+
+                    &:first-child span {
+                        margin-left: 15px;
+                    }
                 }
             }
         }

@@ -1,12 +1,12 @@
-import * as React from "react";
-import {ReactElement} from "react";
-import {AnyObject, Block, Field, TypeDef} from "../../types";
-import '../../../styles/_block.scss'
-import BlockField from "./BlockField";
+import * as React from 'react';
+import { ReactElement } from 'react';
+import { Block, Field, TypeDef } from '../../types';
+import '../../../styles/_block.scss';
+import BlockField from './BlockField';
 
 interface Props {
-    block: Block
-    dir: TypeDef
+    block: Block;
+    dir: TypeDef;
 }
 
 /*
@@ -20,24 +20,33 @@ interface Props {
 }
  */
 
-export default function BlockComponent(props: Props): ReactElement {
-    const parts: (Field)[] = props.block.text
+export default function BlockComponent(
+    {
+        block,
+        dir,
+    }: Props,
+): ReactElement {
+    const parts: (Field)[] = block.text
         .split(/((?<![^\\]\\){{[^}]*(?:[^\\]|(?:\\\\))+?}})/g)
-        .filter(e => e)
+        .filter((e) => e)
         .map(
-            (e, i): any => i % 2 ? (e && props.dir[e]) : {name: "dummy" + i.toString(), type: "dummy", default: e}
+            (e, i): Field => ((/((?<![^\\]\\){{[^}]*(?:[^\\]|(?:\\\\))+?}})/g).test(e) ? (e && dir[e]) : {
+                name: `dummy${i.toString()}`,
+                type: 'dummy',
+                default: e
+            }),
         );
-    console.log(parts, props.dir);
+    console.log(parts, dir);
 
     return (
         <div
             className="blox block"
             style={{
-                backgroundColor: props.block.color
+                backgroundColor: block.color,
             }}
         >
-            {parts.map(field => (
-                <BlockField key={field.name} field={field} />
+            {parts.map((field) => (
+                <BlockField key={field.name} field={field}/>
             ))}
         </div>
     );
