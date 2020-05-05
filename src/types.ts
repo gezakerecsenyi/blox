@@ -9,22 +9,28 @@ export interface Category {
 }
 
 export interface Field {
-    type: 'dummy' | 'string' | 'number' | 'check' | string;
+    type: 'dummy' | 'string' | 'number' | 'check' | 'select' | string;
     name: string;
     default?: string | number | boolean;
     options?: AnyObject;
+    value?: any;
+    updater?: (newValue: any) => void;
 }
 
 export type ColorString = string;
 
-export type TypeDef = AnyObject;
+export type TypeDef = {
+    [key: string]: Field
+};
+
+export type ConnectionType = 'top' | 'bottom' | 'top and bottom' | 'left'
 
 export interface Block {
     text: string;
-    color: ColorString;
+    color?: ColorString;
     allowSpacing?: boolean;
     category: Category;
     generate: string;
     order: number;
-    connections: 'top' | 'bottom' | 'top and bottom' | 'left';
+    connections: ConnectionType;
 }

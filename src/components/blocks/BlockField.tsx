@@ -25,8 +25,11 @@ export default function BlockField(
             const [value, setValue] = useState(field.default || '');
 
             const change = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-                setValue(field.type === 'string' ? event.target.value.slice(0, field.options?.maxLength)
-                    : event.target.value.replace(/[^\d .]*/g, ''));
+                const newVal = field.type === 'string' ? event.target.value.slice(0, field.options?.maxLength)
+                    : event.target.value.replace(/[^\d .]*/g, '');
+
+                setValue(newVal);
+                field.updater(newVal);
             }, []);
 
             const inputRef = useRef<HTMLInputElement | null>(null);
@@ -54,14 +57,50 @@ export default function BlockField(
                 />
             );
         case 'check':
+            const changeHandler = useCallback((event) => {
+                field.updater(event.target.checked);
+            }, []);
+
             return (
                 <label className='blox block field check label'>
-                    <input
-                        type="checkbox"
-                        className='blox block field check'
-                    />
+                    {
+                        field.default ? (
+                            <input
+                                type="checkbox"
+                                className='blox block field check'
+                                onChange={changeHandler}
+                                defaultChecked={true}
+                            />
+                        ) : (
+                            <input
+                                type="checkbox"
+                                className='blox block field check'
+                                onChange={changeHandler}
+                            />
+                        )
+                    }
+
                     <span className='blox block field check'/>
                 </label>
+            );
+        case 'select':
+            const selectHandler = useCallback((event) => {
+                field.updater(field.options?.options[parseInt(event.target.value)]);
+            }, []);
+
+            return (
+                <select
+                    className='blox block field select'
+                    onChange={selectHandler}
+                >
+                    {
+                        field.options?.options?.map((option: [string, any], index: number) => ( // We use the index instead of the value because we don't know the type. For instance, they may want the value to be an object or a number.
+                            <option value={index.toString()} key={JSON.stringify(option[1])}>
+                                {option[0]}
+                            </option>
+                        ))
+                    }
+                </select>
             );
         default:
             return null;

@@ -1,14 +1,13 @@
-import {AnyObject, Block, Category, Field, TypeDef} from "./types";
-import {isCategory} from "./utils";
+import { Block, Category, Field, TypeDef } from './types';
+import { isCategory } from './utils';
 
 export default class Blox {
     public dir: TypeDef = {};
     public categories: Category[] = [];
     blocks: Block[] = [];
-    private rawBlocks: AnyObject[];
 
     constructor(options?: any) {
-        this.dir = [];
+        this.dir = {};
     }
 
     loop<T = any>(arr: T[], cb: (item: T, index: number, breakFunction: () => void) => void): void {
@@ -41,7 +40,6 @@ export default class Blox {
     }
 
     populate(blocks: Block[]) {
-        this.rawBlocks = blocks;
         const newBlocks = blocks;
 
         const categories: Category[] = [];
